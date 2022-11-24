@@ -80,6 +80,31 @@ button {text-align: center;margin: 50px;}
       {%endfor%}
   </tbody>
 </table>
+<div>
+<h1>Nota do atentimento</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NOME</th>
+      <th scope="col">NUMERO</th>
+      <th scope="col">NOTA</th>
+      <th scope="col">DATA</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for notas in nota%}
+    <tr>
+      <th scope="row">{{notas['_id']}}</th>
+      <td >{{notas['name']}}</td>
+      <td>{{notas['complaint']}}</td>
+      <td>{{notas['number']}}</td>
+      <td>{{notas['complaint_time']}}</td>
+    </tr>
+      {%endfor%}
+  </tbody>
+</table>
 <form method="POST">
   <button type="submit"  name="forwardBtn" class="btn btn-primary btn-lg btn-block">Gerar Relatório</button>
 </form>

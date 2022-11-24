@@ -8,6 +8,7 @@ admin = db["admin"] #Colletion user
 users = db["users"]
 complaint = db["complaint"]
 orders = db["orders"]
+chatbot = db["chatbot"]
 auth = Blueprint('auth', __name__)
 
 
@@ -15,19 +16,28 @@ auth = Blueprint('auth', __name__)
 def teste():
     if request.method == 'POST':
         flash("Ralatório generado", category='success')
+
+    #Usuarios
     a= []
     for x in users.find({}):
         #print(x)
         a.append(x)
+    #complaints
     b = []
     for c in complaint.find({}):
         #print(c)
         b.append(c)
+    #orders
     o = []
     for d in orders.find({}):
         #print(d)
         o.append(d)
-    return render_template("teste.html", value=a, comp=b, orders=o)
+    #nota
+    n = []
+    for f in chatbot.find({}):
+        # print(d)
+        n.append(f)
+    return render_template("teste.html", value=a, comp=b, orders=o, nota=n)
 @auth.route('/result',methods=['POST', 'GET'])
 def result():
     output = request.form.to_dict()
