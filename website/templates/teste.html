@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block content
+%}
+<style>
+h1 {text-align: center;padding: 50px 50px;}
+p {text-align: center;}
+div {text-align: center;}
+button {text-align: center;margin: 50px;}
+</style>
+
+<div>
+<h1>Usuário</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NOME</th>
+      <th scope="col">NUMERO</th>
+      <th scope="col">CHANNEL</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for valor in value%}
+    <tr>
+      <th scope="row">{{valor['_id']}}</th>
+      <td >{{valor['ProfileName']}}</td>
+      <td>{{valor['number']}}</td>
+      <td>{{valor['channel']}}</td>
+    </tr>
+      {%endfor%}
+  </tbody>
+</table>
+<div>
+<h1>Complaints</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NOME</th>
+      <th scope="col">NUMERO</th>
+      <th scope="col">complaint</th>
+      <th scope="col">DATA</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for comps in comp%}
+    <tr>
+      <th scope="row">{{comps['_id']}}</th>
+      <td >{{comps['name']}}</td>
+      <td>{{comps['number']}}</td>
+      <td>{{comps['complaint']}}</td>
+      <td>{{comps['complaint_time']}}</td>
+    </tr>
+      {%endfor%}
+  </tbody>
+</table>
+<div>
+<h1>Pedidos</h1>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NUMERO</th>
+      <th scope="col">ITEM</th>
+      <th scope="col">address</th>
+      <th scope="col">order_time</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for order in orders%}
+    <tr>
+      <th scope="row">{{order['_id']}}</th>
+      <td >{{order['number']}}</td>
+      <td>{{order['item']}}</td>
+      <td>{{order['address']}}</td>
+      <td>{{order['order_time']}}</td>
+    </tr>
+      {%endfor%}
+  </tbody>
+</table>
+<form method="POST">
+  <button type="submit"  name="forwardBtn" class="btn btn-primary btn-lg btn-block">Gerar Relatório</button>
+</form>
+
+
+{% endblock %}

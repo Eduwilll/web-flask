@@ -1,9 +1,38 @@
 from flask import Blueprint, render_template, request, flash
 from pymongo import MongoClient
+import pdfkit
+
 cluster = MongoClient("mongodb+srv://dbBot:admin@cluster0.yn32au7.mongodb.net/?retryWrites=true&w=majority") # endereço do mangodb
 db = cluster["salgados"] #Banco de dados
 admin = db["admin"] #Colletion user
+users = db["users"]
+complaint = db["complaint"]
+orders = db["orders"]
 auth = Blueprint('auth', __name__)
+
+
+@auth.route("/teste", methods=['GET','POST'])
+def teste():
+    if request.method == 'POST':
+        flash("Ralatório generado", category='success')
+    a= []
+    for x in users.find({}):
+        #print(x)
+        a.append(x)
+    b = []
+    for c in complaint.find({}):
+        #print(c)
+        b.append(c)
+    o = []
+    for d in orders.find({}):
+        #print(d)
+        o.append(d)
+    return render_template("teste.html", value=a, comp=b, orders=o)
+@auth.route('/result',methods=['POST', 'GET'])
+def result():
+    output = request.form.to_dict()
+    print(output)
+    return render_template('teste.html')
 
 @auth.route("/login", methods=['GET','POST'])
 def login():
@@ -13,8 +42,7 @@ def login():
 
 @auth.route("/logout")
 def logout():
-    admin1 = admin.find_one()
-    return f"<h1>Logout{admin1}</h1>"
+    return "<h1>Logout</h1>"
 
 @auth.route("/sign-up", methods=['GET','POST'])
 def signup():
@@ -36,6 +64,5 @@ def signup():
         else:
             # add user to database
             flash("Conta criada", category='success')
-            users.insert_one({"number": number, "ProfileName": profileName, "channel": "whatsapp", "status": "main", "messages": []})
     return render_template("sign_up.html")
 
